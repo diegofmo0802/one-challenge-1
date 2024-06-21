@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Challenge #1</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header id="Header">
+            <h1>Challenge #1 - encrypter</h1>
+        </header>
+        <main id="App">
+            <div id="Form">
+                <h2>Formulario</h2>
+                <div id="Tools">
+                    <div id="Mode">
+                        <input type="button" value="Codificar"   class="ActiveMode btn" id="Encode">
+                        <input type="button" value="Decodificar" class="btn" id="Decode">
+                    </div>
+                    <input type="button" value="Limpiar"  class="btn" id="Clear">
+                </div>
+                <textarea spellcheck="false" placeholder="Ingrese el texto a codificar aquí" id="Input"></textarea>
+                <span id="Error"></span>
+            </div>
+            <div id="OutputContainer">
+                <h2>Resultado</h2>
+                <p id="Output"></p>
+                <span id="Notify"></span>
+                <input type="button" value="Copiar" class="btn" id="Copiar">
+            </div>
+        </main>
+        <footer id="Footer">
+            <p>Desarrollador: <a href="http://github.com/diegofmo0802" target="_blank">diegofmo0802</a></p>
+        </footer>
+    </body>
+    <script src="logic.js"></script>
+</html>
