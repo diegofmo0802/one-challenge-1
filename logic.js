@@ -88,6 +88,7 @@ function showError(Message) {
         userError.innerText = Message;
         userError.classList.add('NotifyAnimation');
     } else {
+        if (userError.innerText == '') return;
         userError.classList.remove('NotifyAnimation');
         userError.classList.add('NotifyAnimationEnd');
         CurrentAnimErrorID = setTimeout(() => {
