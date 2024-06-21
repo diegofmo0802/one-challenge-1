@@ -13,7 +13,7 @@ let userOutput = document.querySelector('#Output');
 /** @type {HTMLSpanElement} El campo de notificación de la app */
 let userNotify =  document.querySelector('#Notify');
 /** @type {HTMLSpanElement} El campo de notificación de la app */
-let userNError =  document.querySelector('#Error');
+let userError =  document.querySelector('#Error');
 /** @type {'Enc'|'Dec'} El modo codificación/decodificación  */
 let appMode = 'Enc';
 
@@ -21,6 +21,8 @@ let appMode = 'Enc';
 let invalidChars = /[^a-z\s]/;
 /** La id del TimeOut de la notificación mostrada al usuario (si esta activa) */
 let CurrentNotifyCopyID = null;
+/** La id del TimeOut de la animación de error mostrada al usuario (si esta activa) */
+let CurrentAnimErrorID = null;
 /**
  * Codifica un texto.
  * @param {string} Message El texto a codificar.
@@ -64,9 +66,15 @@ function decode(Message) {
 function notifyCopyStatus(Message, Time = 1000) {
     if (CurrentNotifyCopyID) clearTimeout(CurrentNotifyCopyID);
     userNotify.innerText = Message;
+    userNotify.classList.add('NotifyAnimation');
     CurrentNotifyCopyID = setTimeout(() => {
-        userNotify.innerText = '';
-        CurrentNotifyCopyID = null;
+        userNotify.classList.remove('NotifyAnimation');
+        userNotify.classList.add('NotifyAnimationEnd');
+        CurrentNotifyCopyID = setTimeout(() => {
+            userError.innerText = '';
+            userError.classList.remove('NotifyAnimationEnd');
+            CurrentNotifyCopyID = null;
+        }, 500);
     }, Time);
 }
 
@@ -75,7 +83,19 @@ function notifyCopyStatus(Message, Time = 1000) {
  * @param {string|null} Message El mensaje de error a mostrar.          
  */
 function showError(Message) {
-    userNError.innerText = Message ?? '';
+    if (CurrentAnimErrorID) clearTimeout(CurrentAnimErrorID);
+    if (Message) {
+        userError.innerText = Message;
+        userError.classList.add('NotifyAnimation');
+    } else {
+        userError.classList.remove('NotifyAnimation');
+        userError.classList.add('NotifyAnimationEnd');
+        CurrentAnimErrorID = setTimeout(() => {
+            userError.innerText = '';
+            userError.classList.remove('NotifyAnimationEnd');
+            CurrentAnimErrorID = null;
+        }, 500);
+    }
 }
 
 /**
